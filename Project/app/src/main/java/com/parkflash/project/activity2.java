@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -43,6 +44,26 @@ public class activity2 extends AppCompatActivity {
         }
         mmSocket = tmp;
         setTitle(device.getName());
+        connect(device);
     }
 
+
+    private Boolean connect(BluetoothDevice bdDevice) {
+        Boolean bool = false;
+        try {
+            Log.i("Log", "service method is called ");
+            Class cl = Class.forName("android.bluetooth.BluetoothDevice");
+            Class[] par = {};
+            Method method = cl.getMethod("createBond", par);
+            Object[] args = {};
+            bool = (Boolean) method.invoke(bdDevice);//, args);// this invoke creates the detected devices paired.
+            //Log.i("Log", "This is: "+bool.booleanValue());
+            //Log.i("Log", "devicesss: "+bdDevice.getName());
+        } catch (Exception e) {
+            Log.i("Log", "Inside catch of serviceFromDevice Method");
+            this.finish();
+            e.printStackTrace();
+        }
+        return bool.booleanValue();
+    };
 }
