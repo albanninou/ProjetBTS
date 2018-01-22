@@ -3,34 +3,24 @@ package com.parkflash.project;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Debug;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_ENABLE_BT = 1;
-
+    public static String BLUETOOTH_DEVICE = "device";
+    public static String MY_UUID = "parckflash";
+    public ListView list;
     ModeFonctionnement modeFonctionnement;
     ColorFonctionnement colorFonctionnement;
     Bluetooth bluetooth;
-
-    public static String BLUETOOTH_DEVICE = "device";
-    public static String MY_UUID = "parckflash";
-
-
-    public ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bluetooth.onDestroy();
-        
-        // Don't forget to unregister the ACTION_FOUND receiver.
     }
 
     protected void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
@@ -103,9 +90,8 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Log.e("ParkFlash", "Result ok");
-               checkLocationPermission();
+                checkLocationPermission();
             }
         }
     }
-
 }

@@ -3,26 +3,22 @@ package com.parkflash.project;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 /**
  * Created by alban on 16/01/2018.
  */
 
 public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
+    public static String MODE = "mode";
     MainActivity mainActivity;
+    int fonctionnementMode;
+
+    public ModeFonctionnement(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
     public int getFonctionnementMode() {
         return fonctionnementMode;
-    }
-
-    int fonctionnementMode;
-
-    public static String MODE = "mode";
-
-
-    public ModeFonctionnement(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
     }
 
     @Override
