@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -26,11 +28,13 @@ import java.util.Set;
 public class Bluetooth {
     MainActivity mainActivity;
     BluetoothAdapter mBluetoothAdapter;
+    HashMap<String,BluetoothDevice> bluetoothDeviceMap;
 
     public Bluetooth(MainActivity mainActivity){
         this.mainActivity = mainActivity;
         BluetoothManager mBluetoothManager = (BluetoothManager) mainActivity.getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
+        bluetoothDeviceMap = new HashMap<String, BluetoothDevice>();
         if (mBluetoothAdapter == null) {
             Log.e("ParkFlash", "telephone compatible bluetooth");
         }else{
@@ -52,32 +56,21 @@ public class Bluetooth {
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        filter.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
         mainActivity.registerReceiver(mReceiver, filter);
         mBluetoothAdapter.startDiscovery();
     }
 
     public void pairedDevicesList()
     {
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         ArrayList list = new ArrayList();
-
-        if (pairedDevices.size()>0)
-        {
-            for(BluetoothDevice bt : pairedDevices)
-            {
+        if (bluetoothDeviceMap.size() > 0) {
+            for (BluetoothDevice bt : bluetoothDeviceMap.values()) {
                 list.add(bt.getName() + "\n" + bt.getAddress()); //Get the device's name and the address
             }
         }
-        else
-        {
-            Toast.makeText(mainActivity.getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
-        }
-
         final ArrayAdapter adapter = new ArrayAdapter(mainActivity,android.R.layout.simple_list_item_1, list);
         mainActivity.list.setAdapter(adapter);
         mainActivity.list.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
-
     }
 
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener()
@@ -87,44 +80,34 @@ public class Bluetooth {
             // Get the device MAC address, the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
-            // Make an intent to start next activity.
-            //Intent i = new Intent(DeviceList.this, ledControl.class);
-            //Change the activity.
-            //i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
-            //startActivity(i);
-            Toast.makeText(mainActivity.getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(mainActivity, activity2.class);
+            i.putExtra(MainActivity.BLUETOOTH_DEVICE, address); //this will be received at ledControl (class) Activity
+            i.putExtra(ColorFonctionnement.COLOR, mainActivity.colorFonctionnement.getColorFonctionnement());
+            i.putExtra(ModeFonctionnement.MODE, mainActivity.modeFonctionnement.getFonctionnementMode());
+
+            mainActivity.startActivity(i);
         }
     };
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     public final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-
             String action = intent.getAction();
-
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
                 //discovery starts, we can show progress dialog or perform other tasks
                 Log.e("parkflash","start realy scan");
-
             }
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 //discovery finishes, dismis progress dialog
                 Log.e("parkflash","scan finish");
-
             }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 //bluetooth device found
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
+                bluetoothDeviceMap.put(device.getName(),device);
                 Log.e("parkflash","Found device " + device.getName());
+                pairedDevicesList();
             }
-            if (BluetoothDevice.ACTION_NAME_CHANGED.equals(action)) {
-                //bluetooth device found
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-                Log.e("parkflash","Found device " + device.getName());
-            }
-
         }
     };
 

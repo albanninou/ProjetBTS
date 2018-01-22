@@ -12,7 +12,13 @@ import android.widget.TextView;
 public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
     MainActivity mainActivity;
 
+    public int getFonctionnementMode() {
+        return fonctionnementMode;
+    }
+
     int fonctionnementMode;
+
+    public static String MODE = "mode";
 
 
     public ModeFonctionnement(MainActivity mainActivity){

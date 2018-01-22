@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     ColorFonctionnement colorFonctionnement;
     Bluetooth bluetooth;
 
+    public static String BLUETOOTH_DEVICE = "device";
+    public static String MY_UUID = "parckflash";
+
+
     public ListView list;
 
     @Override
@@ -34,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         list = findViewById(R.id.list);
-
         bluetooth = new Bluetooth(this);
-
         modeFonctionnement = new ModeFonctionnement(this);
         colorFonctionnement = new ColorFonctionnement(this);
 
@@ -84,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     bluetooth.startScan();
                 } else {
-
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
                 }
                 break;
             }

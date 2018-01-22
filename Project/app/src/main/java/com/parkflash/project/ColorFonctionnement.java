@@ -12,8 +12,13 @@ import android.widget.TextView;
 public class ColorFonctionnement implements AdapterView.OnItemSelectedListener {
     MainActivity mainActivity;
 
+    public int getColorFonctionnement() {
+        return colorFonctionnement;
+    }
+
     int colorFonctionnement;
 
+    public static String COLOR = "color";
 
     public ColorFonctionnement(MainActivity mainActivity){
         this.mainActivity = mainActivity;
