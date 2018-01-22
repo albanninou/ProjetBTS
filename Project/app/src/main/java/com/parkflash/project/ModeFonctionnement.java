@@ -21,13 +21,10 @@ public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mainActivity,
                 R.array.fonction_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fonctionnementMode = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
-
-        textView.setText("change fonctionnement");
     }
 
     @Override
