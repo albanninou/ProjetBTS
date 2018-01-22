@@ -14,8 +14,7 @@ import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int REQUEST_ENABLE_BT = 1;
-    public static String BLUETOOTH_DEVICE = "device";
+    public static int REQUEST_ENABLE_BLUETOOTH_BT = 1;
     public static String MY_UUID = "parckflash";
     public ListView list;
     ModeFonctionnement modeFonctionnement;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         Log.e("ParkFlash", "activity result call");
-        if (requestCode == REQUEST_ENABLE_BT) {
+        if (requestCode == REQUEST_ENABLE_BLUETOOTH_BT) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Log.e("ParkFlash", "Result ok");

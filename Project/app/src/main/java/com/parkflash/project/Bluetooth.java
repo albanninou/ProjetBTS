@@ -24,13 +24,16 @@ public class Bluetooth {
     MainActivity mainActivity;
     BluetoothAdapter mBluetoothAdapter;
     HashMap<String, BluetoothDevice> bluetoothDeviceMap;
+
+    public static String BLUETOOTH_DEVICE = "device";
+
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
             // Get the device MAC address, the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
             Intent i = new Intent(mainActivity, activity2.class);
-            i.putExtra(MainActivity.BLUETOOTH_DEVICE, address); //this will be received at ledControl (class) Activity
+            i.putExtra(BLUETOOTH_DEVICE, address); //this will be received at ledControl (class) Activity
             i.putExtra(ColorFonctionnement.COLOR, mainActivity.colorFonctionnement.getColorFonctionnement());
             i.putExtra(ModeFonctionnement.MODE, mainActivity.modeFonctionnement.getFonctionnementMode());
             mainActivity.startActivity(i);
@@ -71,7 +74,7 @@ public class Bluetooth {
         if (!mBluetoothAdapter.isEnabled()) {
             Log.e("ParkFlash", "activation du bluetooth");
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            mainActivity.startActivityForResult(enableBtIntent, MainActivity.REQUEST_ENABLE_BT);
+            mainActivity.startActivityForResult(enableBtIntent, MainActivity.REQUEST_ENABLE_BLUETOOTH_BT);
         } else {
             Log.e("ParkFlash", "bluethoot deja activer");
             startScan();
