@@ -15,7 +15,7 @@ import android.widget.Spinner;
 public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_ENABLE_BLUETOOTH_BT = 1;
-    public static String MY_UUID = "parckflash";
+    public static String MY_UUID = "00001101-0000-1000-8000-00805F9B34FB";
     public ListView list;
     ModeFonctionnement modeFonctionnement;
     ColorFonctionnement colorFonctionnement;

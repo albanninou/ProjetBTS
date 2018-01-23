@@ -36,6 +36,7 @@ public class Bluetooth {
             i.putExtra(BLUETOOTH_DEVICE, address); //this will be received at ledControl (class) Activity
             i.putExtra(ColorFonctionnement.COLOR, mainActivity.colorFonctionnement.getColorFonctionnement());
             i.putExtra(ModeFonctionnement.MODE, mainActivity.modeFonctionnement.getFonctionnementMode());
+            Log.e("parkflash", "start activity2");
             mainActivity.startActivity(i);
         }
     };
@@ -49,7 +50,7 @@ public class Bluetooth {
             }
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 //discovery finishes, dismis progress dialog
-                Log.e("parkflash", "scan finish");
+                //Log.e("parkflash", "scan finish");
             }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 //bluetooth device found
@@ -66,10 +67,12 @@ public class Bluetooth {
         BluetoothManager mBluetoothManager = (BluetoothManager) mainActivity.getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         bluetoothDeviceMap = new HashMap<String, BluetoothDevice>();
-        if (mBluetoothAdapter == null) {
+        if (mBluetoothAdapter != null) {
             Log.e("ParkFlash", "telephone compatible bluetooth");
         } else {
             Log.e("ParkFlash", "telephone non compatible bluetooth");
+            return;
+
         }
         if (!mBluetoothAdapter.isEnabled()) {
             Log.e("ParkFlash", "activation du bluetooth");
