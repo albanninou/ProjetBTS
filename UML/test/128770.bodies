@@ -1,0 +1,42 @@
+class MainActivity
+!!!129922.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        list = findViewById(R.id.list);
+        bluetooth = new Bluetooth(this);
+        modeFonctionnement = new ModeFonctionnement(this);
+        colorFonctionnement = new ColorFonctionnement(this);
+        myPermission = new MyPermission(this);
+
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.fonction_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(modeFonctionnement);
+
+        Spinner spinner2 = findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.color_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(colorFonctionnement);
+
+        list = findViewById(R.id.list);
+!!!130050.java!!!	onDestroy() : void
+        super.onDestroy();
+        bluetooth.onDestroy();
+!!!130178.java!!!	onRequestPermissionsResult(in requestCode : int, inout permissions : String [[]], inout grantResults : int [[]]) : void
+        myPermission.onRequestPermissionsResult(requestCode,permissions,grantResults,bluetooth);
+!!!130306.java!!!	onActivityResult(in requestCode : int, in resultCode : int, inout data : Intent) : void
+        Log.e("ParkFlash", "activity result call");
+        if (requestCode == REQUEST_ENABLE_BLUETOOTH_BT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Log.e("ParkFlash", "Result ok");
+                if(myPermission.checkLocationPermission()){
+                    bluetooth.startScan();
+                }
+            }
+        }

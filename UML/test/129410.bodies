@@ -1,0 +1,27 @@
+class MyPermission
+!!!130946.java!!!	MyPermission(inout mainActivity : MainActivity)
+        this.mainActivity = mainActivity;
+!!!131074.java!!!	checkLocationPermission() : boolean
+        if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(mainActivity,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }else{
+            return true;
+        }
+        return false;
+!!!131202.java!!!	onRequestPermissionsResult(in requestCode : int, inout permissions : String [[]], inout grantResults : int [[]], inout bluetooth : Bluetooth) : void
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    bluetooth.startScan();
+                } else {
+                    ActivityCompat.requestPermissions(mainActivity,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
+                }
+                break;
+            }
+        }

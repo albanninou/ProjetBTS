@@ -1,0 +1,16 @@
+window_sizes 1920 1001 450 1464 819 128
+
+diagrams
+  active  classdiagram_ref 128002 // test
+    1464 819 72 A0 0 0
+end
+show_stereotypes
+selected classdiagram_ref 128002 // test
+open
+  classview_ref 128002 // project
+  classview_ref 128130 // unknown
+  classview_ref 128258 // AdapterView
+  deploymentview_ref 128258 // AdapterView
+  deploymentview_ref 128130 // unknown
+end
+end

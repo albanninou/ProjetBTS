@@ -1,0 +1,94 @@
+class activity2
+!!!128002.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_activity2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        String value = intent.getStringExtra(Bluetooth.BLUETOOTH_DEVICE); //if it's a string you stored.
+
+        BluetoothManager mBluetoothManager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+        mBluetoothAdapter.cancelDiscovery();
+        device = mBluetoothAdapter.getRemoteDevice(value);
+
+        Log.e("parkflash", "on reset le device");
+        ConnectThread connectThread = new ConnectThread(device);
+        connectThread.start();
+
+
+        setTitle(device.getName());
+
+!!!128130.java!!!	ConnectedThread() : void
+
+        InputStream tmpIn = null;
+        OutputStream tmpOut = null;
+
+        // Get the input and output streams; using temp objects because
+        // member streams are final.
+        try {
+            tmpIn = mmSocket.getInputStream();
+        } catch (IOException e) {
+            Log.e("parkflash", "Error occurred when creating input stream", e);
+        }
+        try {
+            tmpOut = mmSocket.getOutputStream();
+        } catch (IOException e) {
+            Log.e("parkflash", "Error occurred when creating output stream", e);
+        }
+
+        mmInStream = tmpIn;
+        mmOutStream = tmpOut;
+
+        write("bonjour".getBytes());
+!!!128258.java!!!	write(inout bytes : byte [[]]) : void
+        try {
+            mmOutStream.write(bytes);
+
+            // Share the sent message with the UI activity.
+            Message writtenMsg = mHandler.obtainMessage(
+                    MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
+            writtenMsg.sendToTarget();
+        } catch (IOException e) {
+            Log.e(TAG, "Error occurred when sending data", e);
+
+            // Send a failure message back to the activity.
+            Message writeErrorMsg =
+                    mHandler.obtainMessage(MessageConstants.MESSAGE_TOAST);
+            Bundle bundle = new Bundle();
+            bundle.putString("toast",
+                    "Couldn't send data to the other device");
+            writeErrorMsg.setData(bundle);
+            mHandler.sendMessage(writeErrorMsg);
+        }
+!!!128386.java!!!	connect(inout bdDevice : BluetoothDevice) : Boolean
+        Boolean bool = false;
+        try {
+            Log.e("parkflash", "service method is called ");
+            Class cl = Class.forName("android.bluetooth.BluetoothDevice");
+            Class[] par = {};
+            Method method = cl.getMethod("createBond", par);
+            Object[] args = {};
+            bool = (Boolean) method.invoke(bdDevice);//, args);// this invoke creates the detected devices paired.
+            Log.e("parkflash", "conected to device: "+bool.booleanValue());
+            try {
+
+                mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(MainActivity.MY_UUID));
+//            Method m = device.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
+//            tmp = (BluetoothSocket) m.invoke(device, 1);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(mmSocket == null){
+                Log.e("parkflash", "socket null --'");
+
+            }
+                //ConnectedThread();
+            //Log.i("Log", "devicesss: "+bdDevice.getName());
+        } catch (Exception e) {
+            Log.i("Log", "Inside catch of serviceFromDevice Method");
+            this.finish();
+            e.printStackTrace();
+        }
+        return bool.booleanValue();

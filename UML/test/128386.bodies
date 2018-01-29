@@ -1,0 +1,44 @@
+class ConnectThread
+!!!128514.java!!!	ConnectThread(inout device : BluetoothDevice)
+            // Use a temporary object that is later assigned to mmSocket,
+            // because mmSocket is final
+            BluetoothSocket tmp = null;
+            mmDevice = device;
+
+            // Get a BluetoothSocket to connect with the given BluetoothDevice
+            try {
+                // MY_UUID is the app's UUID string, also used by the server code
+                tmp = device.createRfcommSocketToServiceRecord(UUID.fromString(MainActivity.MY_UUID));
+            } catch (IOException e) { }
+            mmSocket = tmp;
+            if(mmSocket == null){
+                Log.e("parkflash", "socket null --'");
+
+            }
+!!!128642.java!!!	run() : void
+            // Cancel discovery because it will slow down the connection
+            mBluetoothAdapter.cancelDiscovery();
+            Log.e("ListDeviceBluetooth", "Initiation de la connexion");
+            try {
+                // Connect the device through the socket. This will block
+                // until it succeeds or throws an exception
+
+                mmSocket.connect();
+                //Toast.makeText(getActivity().getApplicationContext(),"Appairage effectué",Toast.LENGTH_LONG).show();
+                Log.e("ListDeviceBluetooth", "Appairage effectué");
+            } catch (IOException connectException) {
+                // Unable to connect; close the socket and get out
+                Log.e("ListDeviceBluetooth", "Impossible de se connecter");
+                //Toast.makeText(getApplicationContext(),"Impossible de se connecter",Toast.LENGTH_LONG).show();
+                try {
+                    mmSocket.close();
+                } catch (IOException closeException) { }
+                return;
+            }
+
+            // Do work to manage the connection (in a separate thread)
+            // manageConnectedSocket(mmSocket);
+!!!128770.java!!!	cancel() : void
+            try {
+                mmSocket.close();
+            } catch (IOException e) { }

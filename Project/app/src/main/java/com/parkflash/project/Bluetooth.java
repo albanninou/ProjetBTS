@@ -45,11 +45,9 @@ public class Bluetooth {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                //discovery starts, we can show progress dialog or perform other tasks
                 Log.e("parkflash", "start realy scan");
             }
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismis progress dialog
                 //Log.e("parkflash", "scan finish");
             }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {

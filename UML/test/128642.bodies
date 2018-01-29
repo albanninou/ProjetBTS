@@ -1,0 +1,41 @@
+class Bluetooth
+!!!128898.java!!!	Bluetooth(inout mainActivity : MainActivity)
+        this.mainActivity = mainActivity;
+        BluetoothManager mBluetoothManager = (BluetoothManager) mainActivity.getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+        bluetoothDeviceMap = new HashMap<String, BluetoothDevice>();
+        if (mBluetoothAdapter != null) {
+            Log.e("ParkFlash", "telephone compatible bluetooth");
+        } else {
+            Log.e("ParkFlash", "telephone non compatible bluetooth");
+            return;
+
+        }
+        if (!mBluetoothAdapter.isEnabled()) {
+            Log.e("ParkFlash", "activation du bluetooth");
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            mainActivity.startActivityForResult(enableBtIntent, MainActivity.REQUEST_ENABLE_BLUETOOTH_BT);
+        } else {
+            Log.e("ParkFlash", "bluethoot deja activer");
+            startScan();
+        }
+!!!129026.java!!!	startScan() : void
+        Log.e("parkflash", "start scan");
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        mainActivity.registerReceiver(mReceiver, filter);
+        mBluetoothAdapter.startDiscovery();
+!!!129154.java!!!	pairedDevicesList() : void
+        ArrayList list = new ArrayList();
+        if (bluetoothDeviceMap.size() > 0) {
+            for (BluetoothDevice bt : bluetoothDeviceMap.values()) {
+                list.add(bt.getName() + "\n" + bt.getAddress()); //Get the device's name and the address
+            }
+        }
+        final ArrayAdapter adapter = new ArrayAdapter(mainActivity, android.R.layout.simple_list_item_1, list);
+        mainActivity.list.setAdapter(adapter);
+        mainActivity.list.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
+!!!129282.java!!!	onDestroy() : void
+        mainActivity.unregisterReceiver(mReceiver);

@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public ListView list;
     ModeFonctionnement modeFonctionnement;
     ColorFonctionnement colorFonctionnement;
+    MyPermission myPermission;
     Bluetooth bluetooth;
 
     @Override
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         bluetooth = new Bluetooth(this);
         modeFonctionnement = new ModeFonctionnement(this);
         colorFonctionnement = new ColorFonctionnement(this);
+        myPermission = new MyPermission(this);
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -54,44 +56,23 @@ public class MainActivity extends AppCompatActivity {
         bluetooth.onDestroy();
     }
 
-    protected void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        }else{
-            bluetooth.startScan();
-        }
-    }
+
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    bluetooth.startScan();
-                } else {
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                            1);
-                }
-                break;
-            }
-        }
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        myPermission.onRequestPermissionsResult(requestCode,permissions,grantResults,bluetooth);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
         Log.e("ParkFlash", "activity result call");
         if (requestCode == REQUEST_ENABLE_BLUETOOTH_BT) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Log.e("ParkFlash", "Result ok");
-                checkLocationPermission();
+                if(myPermission.checkLocationPermission()){
+                    bluetooth.startScan();
+                }
             }
         }
     }
