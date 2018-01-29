@@ -1,14 +1,12 @@
 package com.parkflash.project;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -21,12 +19,21 @@ public class MainActivity extends AppCompatActivity {
     ColorFonctionnement colorFonctionnement;
     MyPermission myPermission;
     Bluetooth bluetooth;
+    Button reScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        reScan = findViewById(R.id.button);
+        reScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bluetooth.isEneable){
+                    bluetooth.startScan();
+                }
+            }
+        });
         list = findViewById(R.id.list);
         bluetooth = new Bluetooth(this);
         modeFonctionnement = new ModeFonctionnement(this);
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         spinner2.setOnItemSelectedListener(colorFonctionnement);
 
         list = findViewById(R.id.list);
+
+
     }
 
     @Override
@@ -57,10 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        myPermission.onRequestPermissionsResult(requestCode,permissions,grantResults,bluetooth);
+        myPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, bluetooth);
     }
 
     @Override
@@ -70,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Log.e("ParkFlash", "Result ok");
-                if(myPermission.checkLocationPermission()){
+                if (myPermission.checkLocationPermission()) {
+                    bluetooth.isEneable = true;
                     bluetooth.startScan();
                 }
             }

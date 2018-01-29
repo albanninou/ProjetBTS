@@ -21,12 +21,12 @@ import java.util.HashMap;
  */
 
 public class Bluetooth {
+    public static String BLUETOOTH_DEVICE = "device";
     MainActivity mainActivity;
     BluetoothAdapter mBluetoothAdapter;
     HashMap<String, BluetoothDevice> bluetoothDeviceMap;
 
-    public static String BLUETOOTH_DEVICE = "device";
-
+    public boolean isEneable;
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
             // Get the device MAC address, the last 17 chars in the View
@@ -46,8 +46,11 @@ public class Bluetooth {
             String action = intent.getAction();
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
                 Log.e("parkflash", "start realy scan");
+                bluetoothDeviceMap.clear();
+                pairedDevicesList();
             }
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                mainActivity.reScan.setEnabled(true);
                 //Log.e("parkflash", "scan finish");
             }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
@@ -62,6 +65,7 @@ public class Bluetooth {
 
     public Bluetooth(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
+        isEneable = false;
         BluetoothManager mBluetoothManager = (BluetoothManager) mainActivity.getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         bluetoothDeviceMap = new HashMap<String, BluetoothDevice>();
@@ -78,12 +82,14 @@ public class Bluetooth {
             mainActivity.startActivityForResult(enableBtIntent, MainActivity.REQUEST_ENABLE_BLUETOOTH_BT);
         } else {
             Log.e("ParkFlash", "bluethoot deja activer");
+            isEneable = true;
             startScan();
         }
     }
 
     public void startScan() {
         Log.e("parkflash", "start scan");
+        mainActivity.reScan.setEnabled(false);
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);

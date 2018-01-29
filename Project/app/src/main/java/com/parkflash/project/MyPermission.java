@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 public class MyPermission {
     MainActivity mainActivity;
 
-    public MyPermission(MainActivity mainActivity){
+    public MyPermission(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
@@ -22,13 +22,13 @@ public class MyPermission {
             ActivityCompat.requestPermissions(mainActivity,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
-        }else{
+        } else {
             return true;
         }
         return false;
     }
 
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults,Bluetooth bluetooth) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults, Bluetooth bluetooth) {
         switch (requestCode) {
             case 1: {
                 if (grantResults.length > 0

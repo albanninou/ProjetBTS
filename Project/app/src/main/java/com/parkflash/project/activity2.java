@@ -21,134 +21,8 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 
-
 public class activity2 extends AppCompatActivity {
-    BluetoothDevice device;
-    BluetoothSocket tmp = null;
-    BluetoothSocket mmSocket = null;
-    BluetoothAdapter mBluetoothAdapter;
-    private InputStream mmInStream = null;
-    private OutputStream mmOutStream = null;
-
     private static final String TAG = "MY_APP_DEBUG_TAG";
-
-
-    // Defines several constants used when transmitting messages between the
-    // service and the UI.
-    private interface MessageConstants {
-        public static final int MESSAGE_READ = 0;
-        public static final int MESSAGE_WRITE = 1;
-        public static final int MESSAGE_TOAST = 2;
-        public static final String TOAST = "Toast";
-
-        // ... (Add other message types here as needed.)
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Intent intent = getIntent();
-        String value = intent.getStringExtra(Bluetooth.BLUETOOTH_DEVICE); //if it's a string you stored.
-
-        BluetoothManager mBluetoothManager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = mBluetoothManager.getAdapter();
-        mBluetoothAdapter.cancelDiscovery();
-        device = mBluetoothAdapter.getRemoteDevice(value);
-
-        Log.e("parkflash", "on reset le device");
-        ConnectThread connectThread = new ConnectThread(device);
-        connectThread.start();
-
-
-        setTitle(device.getName());
-
-    }
-
-
-
-    private byte[] mmBuffer; // mmBuffer store for the stream
-
-    public void ConnectedThread() {
-
-        InputStream tmpIn = null;
-        OutputStream tmpOut = null;
-
-        // Get the input and output streams; using temp objects because
-        // member streams are final.
-        try {
-            tmpIn = mmSocket.getInputStream();
-        } catch (IOException e) {
-            Log.e("parkflash", "Error occurred when creating input stream", e);
-        }
-        try {
-            tmpOut = mmSocket.getOutputStream();
-        } catch (IOException e) {
-            Log.e("parkflash", "Error occurred when creating output stream", e);
-        }
-
-        mmInStream = tmpIn;
-        mmOutStream = tmpOut;
-
-        write("bonjour".getBytes());
-    }
-    public void write(byte[] bytes) {
-        try {
-            mmOutStream.write(bytes);
-
-            // Share the sent message with the UI activity.
-            Message writtenMsg = mHandler.obtainMessage(
-                    MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
-            writtenMsg.sendToTarget();
-        } catch (IOException e) {
-            Log.e(TAG, "Error occurred when sending data", e);
-
-            // Send a failure message back to the activity.
-            Message writeErrorMsg =
-                    mHandler.obtainMessage(MessageConstants.MESSAGE_TOAST);
-            Bundle bundle = new Bundle();
-            bundle.putString("toast",
-                    "Couldn't send data to the other device");
-            writeErrorMsg.setData(bundle);
-            mHandler.sendMessage(writeErrorMsg);
-        }
-    }
-
-    private Boolean connect(BluetoothDevice bdDevice) {
-        Boolean bool = false;
-        try {
-            Log.e("parkflash", "service method is called ");
-            Class cl = Class.forName("android.bluetooth.BluetoothDevice");
-            Class[] par = {};
-            Method method = cl.getMethod("createBond", par);
-            Object[] args = {};
-            bool = (Boolean) method.invoke(bdDevice);//, args);// this invoke creates the detected devices paired.
-            Log.e("parkflash", "conected to device: "+bool.booleanValue());
-            try {
-
-                mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(MainActivity.MY_UUID));
-//            Method m = device.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
-//            tmp = (BluetoothSocket) m.invoke(device, 1);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if(mmSocket == null){
-                Log.e("parkflash", "socket null --'");
-
-            }
-                //ConnectedThread();
-            //Log.i("Log", "devicesss: "+bdDevice.getName());
-        } catch (Exception e) {
-            Log.i("Log", "Inside catch of serviceFromDevice Method");
-            this.finish();
-            e.printStackTrace();
-        }
-        return bool.booleanValue();
-    }
-
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -189,6 +63,115 @@ public class activity2 extends AppCompatActivity {
             }
         }
     };
+    BluetoothDevice device;
+    BluetoothSocket tmp = null;
+    BluetoothSocket mmSocket = null;
+    BluetoothAdapter mBluetoothAdapter;
+    private InputStream mmInStream = null;
+    private OutputStream mmOutStream = null;
+    private byte[] mmBuffer; // mmBuffer store for the stream
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_activity2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        String value = intent.getStringExtra(Bluetooth.BLUETOOTH_DEVICE); //if it's a string you stored.
+
+        BluetoothManager mBluetoothManager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+        mBluetoothAdapter.cancelDiscovery();
+        device = mBluetoothAdapter.getRemoteDevice(value);
+
+        Log.e("parkflash", "on reset le device");
+        ConnectThread connectThread = new ConnectThread(device);
+        connectThread.start();
+
+
+        setTitle(device.getName());
+
+    }
+
+    public void ConnectedThread() {
+
+        InputStream tmpIn = null;
+        OutputStream tmpOut = null;
+
+        // Get the input and output streams; using temp objects because
+        // member streams are final.
+        try {
+            tmpIn = mmSocket.getInputStream();
+        } catch (IOException e) {
+            Log.e("parkflash", "Error occurred when creating input stream", e);
+        }
+        try {
+            tmpOut = mmSocket.getOutputStream();
+        } catch (IOException e) {
+            Log.e("parkflash", "Error occurred when creating output stream", e);
+        }
+
+        mmInStream = tmpIn;
+        mmOutStream = tmpOut;
+
+        write("bonjour".getBytes());
+    }
+
+    public void write(byte[] bytes) {
+        try {
+            mmOutStream.write(bytes);
+
+            // Share the sent message with the UI activity.
+            Message writtenMsg = mHandler.obtainMessage(
+                    MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
+            writtenMsg.sendToTarget();
+        } catch (IOException e) {
+            Log.e(TAG, "Error occurred when sending data", e);
+
+            // Send a failure message back to the activity.
+            Message writeErrorMsg =
+                    mHandler.obtainMessage(MessageConstants.MESSAGE_TOAST);
+            Bundle bundle = new Bundle();
+            bundle.putString("toast",
+                    "Couldn't send data to the other device");
+            writeErrorMsg.setData(bundle);
+            mHandler.sendMessage(writeErrorMsg);
+        }
+    }
+
+    private Boolean connect(BluetoothDevice bdDevice) {
+        Boolean bool = false;
+        try {
+            Log.e("parkflash", "service method is called ");
+            Class cl = Class.forName("android.bluetooth.BluetoothDevice");
+            Class[] par = {};
+            Method method = cl.getMethod("createBond", par);
+            Object[] args = {};
+            bool = (Boolean) method.invoke(bdDevice);//, args);// this invoke creates the detected devices paired.
+            Log.e("parkflash", "conected to device: " + bool.booleanValue());
+
+
+            //ConnectedThread();
+            //Log.i("Log", "devicesss: "+bdDevice.getName());
+        } catch (Exception e) {
+            Log.i("Log", "Inside catch of serviceFromDevice Method");
+            this.finish();
+            e.printStackTrace();
+        }
+        return bool.booleanValue();
+    }
+
+    // Defines several constants used when transmitting messages between the
+    // service and the UI.
+    private interface MessageConstants {
+        public static final int MESSAGE_READ = 0;
+        public static final int MESSAGE_WRITE = 1;
+        public static final int MESSAGE_TOAST = 2;
+        public static final String TOAST = "Toast";
+
+        // ... (Add other message types here as needed.)
+    }
 
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
@@ -199,14 +182,15 @@ public class activity2 extends AppCompatActivity {
             // because mmSocket is final
             BluetoothSocket tmp = null;
             mmDevice = device;
-
+            connect(device);
             // Get a BluetoothSocket to connect with the given BluetoothDevice
             try {
                 // MY_UUID is the app's UUID string, also used by the server code
                 tmp = device.createRfcommSocketToServiceRecord(UUID.fromString(MainActivity.MY_UUID));
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
             mmSocket = tmp;
-            if(mmSocket == null){
+            if (mmSocket == null) {
                 Log.e("parkflash", "socket null --'");
 
             }
@@ -229,7 +213,8 @@ public class activity2 extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),"Impossible de se connecter",Toast.LENGTH_LONG).show();
                 try {
                     mmSocket.close();
-                } catch (IOException closeException) { }
+                } catch (IOException closeException) {
+                }
                 return;
             }
 
@@ -237,11 +222,14 @@ public class activity2 extends AppCompatActivity {
             // manageConnectedSocket(mmSocket);
         }
 
-        /** Will cancel an in-progress connection, and close the socket */
+        /**
+         * Will cancel an in-progress connection, and close the socket
+         */
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
         }
     }
 }
