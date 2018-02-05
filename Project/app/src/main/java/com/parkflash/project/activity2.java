@@ -3,6 +3,7 @@ package com.parkflash.project;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
@@ -94,7 +95,7 @@ public class activity2 extends AppCompatActivity {
 
     }
 
-    public void ConnectedThread() {
+    public void Connecte() {
 
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -174,23 +175,27 @@ public class activity2 extends AppCompatActivity {
     }
 
     private class ConnectThread extends Thread {
-        private final BluetoothSocket mmSocket;
+        private BluetoothServerSocket mmSocketServer;
+        private BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
+
 
         public ConnectThread(BluetoothDevice device) {
             // Use a temporary object that is later assigned to mmSocket,
             // because mmSocket is final
-            BluetoothSocket tmp = null;
+
+            BluetoothServerSocket tmp = null;
             mmDevice = device;
             connect(device);
             // Get a BluetoothSocket to connect with the given BluetoothDevice
             try {
                 // MY_UUID is the app's UUID string, also used by the server code
-                tmp = device.createRfcommSocketToServiceRecord(UUID.fromString(MainActivity.MY_UUID));
+                tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("server", UUID.fromString(MainActivity.MY_UUID));
+
             } catch (IOException e) {
             }
-            mmSocket = tmp;
-            if (mmSocket == null) {
+            mmSocketServer = tmp;
+            if (mmSocketServer == null) {
                 Log.e("parkflash", "socket null --'");
 
             }
@@ -204,7 +209,7 @@ public class activity2 extends AppCompatActivity {
                 // Connect the device through the socket. This will block
                 // until it succeeds or throws an exception
 
-                mmSocket.connect();
+                mmSocket = mmSocketServer.accept();
                 //Toast.makeText(getActivity().getApplicationContext(),"Appairage effectué",Toast.LENGTH_LONG).show();
                 Log.e("ListDeviceBluetooth", "Appairage effectué");
             } catch (IOException connectException) {

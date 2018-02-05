@@ -1,13 +1,13 @@
-window_sizes 1920 1001 450 1464 819 128
+window_sizes 1920 1048 450 1464 866 128
 
 diagrams
   active  classdiagram_ref 128002 // test
-    1464 819 72 A0 0 0
+    1464 819 70 A0 0 0
 end
 show_stereotypes
-selected classdiagram_ref 128002 // test
+selected deploymentview_ref 128002 // project
 open
-  classview_ref 128002 // project
+  class_ref 128770 // MainActivity
   classview_ref 128130 // unknown
   classview_ref 128258 // AdapterView
   deploymentview_ref 128258 // AdapterView

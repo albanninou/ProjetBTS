@@ -1,6 +1,6 @@
 format 216
 "project" // project
-  revision 2
+  revision 3
   modified_by 2 "alban"
   // class settings
   
@@ -27,7 +27,7 @@ format 216
    end
   
   java_dir "C:\\Users\\alban\\Desktop\\ProjetBTS\\Project\\app\\src\\main\\java\\com\\parkflash\\project/"
-  java_package "com.parkflash.project"
+  java_package "com.parkflash"
   classview 128002 "project"
     
     classdiagramsettings member_max_width 0 end
@@ -1151,4 +1151,5 @@ ${definition}"
       end
     end
   end
+
 end

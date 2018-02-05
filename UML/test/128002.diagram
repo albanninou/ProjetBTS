@@ -2,39 +2,39 @@ format 216
 
 classcanvas 128002 class_ref 129410 // MyPermission
   classdiagramsettings member_max_width 0 end
-  xyz 408.726 714.95 2000
+  xyz 408.566 714.47 2000
 end
 classcanvas 128130 class_ref 129282 // ModeFonctionnement
   classdiagramsettings member_max_width 0 end
-  xyz 134.171 495.556 2005
+  xyz 134.171 495.276 2005
 end
 classcanvas 128258 class_ref 129154 // DeviceManager
   classdiagramsettings member_max_width 0 end
-  xyz 1611.75 732.726 2000
+  xyz 1610.59 731.326 2000
 end
 classcanvas 128386 class_ref 128898 // ColorFonctionnement
   classdiagramsettings member_max_width 0 end
-  xyz 83.8511 32.4703 2005
+  xyz 83.4111 32.4703 2005
 end
 classcanvas 128514 class_ref 128770 // MainActivity
   classdiagramsettings member_max_width 0 end
-  xyz 477.086 234.676 3005
+  xyz 477.086 234.516 3005
 end
 classcanvas 129410 class_ref 128642 // Bluetooth
   classdiagramsettings member_max_width 0 end
-  xyz 949.472 471.756 3011
+  xyz 949.072 471.796 3011
 end
 classcanvas 129794 class_ref 128002 // activity2
   classdiagramsettings member_max_width 0 end
-  xyz 1269.21 33.1641 2000
+  xyz 1269.73 33.3241 2000
 end
 classcanvas 129922 class_ref 128130 // AppCompatActivity
   classdiagramsettings member_max_width 0 end
-  xyz 901.405 135.212 3011
+  xyz 901.885 135.412 3011
 end
 classcanvas 130434 class_ref 129026 // OnItemSelectedListener
   classdiagramsettings member_max_width 0 end
-  xyz 113.895 324.089 2011
+  xyz 113.695 324.449 2011
 end
 relationcanvas 128642 relation_ref 128770 // <unidirectional association>
   from ref 128514 z 3006 to ref 128130
