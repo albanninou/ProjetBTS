@@ -13,7 +13,7 @@ import android.widget.Spinner;
 public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_ENABLE_BLUETOOTH_BT = 1;
-    public static String MY_UUID = "00001101-0000-1000-8000-00805F9B34FB";
+    public static String MY_UUID = "446118f0-8b1e-11e2-9e96-0800200c9a66";
     public ListView list;
     ModeFonctionnement modeFonctionnement;
     ColorFonctionnement colorFonctionnement;
