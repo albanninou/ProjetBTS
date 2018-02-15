@@ -1,4 +1,4 @@
-package com.parkflash.project;
+package com.parkflash.flashled;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.parkflash.project", appContext.getPackageName());
+        assertEquals("com.parkflash.flashled", appContext.getPackageName());
     }
 }

@@ -33,4 +33,8 @@ public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    public void setFonctionnementMode(int fonctionnementMode) {
+        this.fonctionnementMode = fonctionnementMode;
+    }
 }

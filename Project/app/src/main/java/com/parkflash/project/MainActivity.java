@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.parkflash.project.Commun.Noyau;
+
 public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_ENABLE_BLUETOOTH_BT = 1;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         reScan = findViewById(R.id.button);
         reScan.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         bluetooth = new Bluetooth(this);
         modeFonctionnement = new ModeFonctionnement(this);
         colorFonctionnement = new ColorFonctionnement(this);
+
+
+        //Noyau noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,6);
+
+
+
+
         myPermission = new MyPermission(this);
 
         Spinner spinner = findViewById(R.id.spinner);

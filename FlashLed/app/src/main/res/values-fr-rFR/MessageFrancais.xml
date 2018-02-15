@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fonction_array">
+        <item>Allumage continue</item>
+        <item>Clignotement</item>
+        <item>Chenillard</item>
+    </string-array>
+
+    <string-array name="color_array">
+        <item>Red</item>
+        <item>Vert</item>
+        <item>Bleu</item>
+    </string-array>
+</resources>

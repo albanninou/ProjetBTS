@@ -33,5 +33,9 @@ public class ColorFonctionnement implements AdapterView.OnItemSelectedListener {
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    public void setColorFonctionnement(int colorFonctionnement) {
+        this.colorFonctionnement = colorFonctionnement;
+    }
 }
 

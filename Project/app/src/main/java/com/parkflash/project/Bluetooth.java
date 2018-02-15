@@ -113,4 +113,8 @@ public class Bluetooth {
     public void onDestroy() {
         mainActivity.unregisterReceiver(mReceiver);
     }
+
+    public int pow(int x) {
+        return x*x;
+    }
 }
