@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     Button sendButton;
 
     TextView dataReceive;
+    UsbSerialPort port;
+    Noyau noyau;
 
 
     @Override
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                noyau.send();
             }
         });
 
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         colorFonctionnement = new ColorFonctionnement(this);
 
         dataReceive = findViewById(R.id.receivedData);
-        //Noyau noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,6);
 
 
         Spinner spinner = findViewById(R.id.spinner);
@@ -104,25 +105,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
 // Read some data! Most have just one port (port 0).
-        UsbSerialPort port = driver.getPorts().get(0);
+        port = driver.getPorts().get(0);
         try {
             port.open(connection);
             port.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            port.write("bonjour".getBytes(),1000);
-            byte buffer[] = new byte[16];
-            int numBytesRead = port.read(buffer, 1000);
-            Log.d("parkflash", "Read " + numBytesRead + " bytes. : "+new String(buffer));
+            noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,8);
+
+
         } catch (IOException e) {
             // Deal with error.
-        } finally {
-            try {
-                port.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
-        //gestionUsb = new GestionUsb(this);
+
     }
 
 
@@ -130,5 +124,13 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Notifications from UsbService will be received here.
      */
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            port.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
