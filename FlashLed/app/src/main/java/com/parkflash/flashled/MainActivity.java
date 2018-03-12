@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(colorFonctionnement);
 
+
+
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
         if (availableDrivers.isEmpty()) {
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         port = driver.getPorts().get(0);
         try {
             port.open(connection);
-            port.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            port.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,8);
 
 

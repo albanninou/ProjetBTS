@@ -67,6 +67,6 @@ public class Noyau {
     }
 
     public void send() {
-        communication.sendData("m:"+modeFonctionnement.getFonctionnementMode()+"/c:"+colorFonctionnement.getColorFonctionnement());
+        communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());
     }
 }

@@ -17,6 +17,7 @@ public class Plaque {
 
 
     public Plaque(MainActivity mainActivity, int index){
+        this.mainActivity = mainActivity;
         this.index = index;
         image = new ImageView(mainActivity);
         image.setScaleX(30);
@@ -24,6 +25,7 @@ public class Plaque {
         image.setX(100 + 150*(index%4));
         image.setY(300 + 500*(index/4));
         setEneable(false);
+
         final ConstraintLayout ll = (ConstraintLayout)mainActivity.findViewById(R.id.layout);
         final ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.TOP, ConstraintLayout.LayoutParams.START);
         mainActivity.runOnUiThread(new Runnable() {

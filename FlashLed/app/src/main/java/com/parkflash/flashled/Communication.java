@@ -29,7 +29,7 @@ public class Communication extends Thread{
     }
 
     public void receiveData(String data) {
-        noyau.setDataReceive(data);
+        //noyau.setDataReceive(data);
         final String[] args = data.split("/");
         if(args.length < 3){
             return;
@@ -37,16 +37,16 @@ public class Communication extends Thread{
         noyau.mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-                boolean eneable = false;
-                Toast.makeText(noyau.mainActivity,""+args[1],Toast.LENGTH_SHORT).show();
-
-                if("1".equalsIgnoreCase(args[1])){
-                    eneable = true;
-                    Toast.makeText(noyau.mainActivity,"want eneable "+Integer.parseInt(args[0])+" with color "+Integer.parseInt(args[2].substring(0,1)),Toast.LENGTH_SHORT).show();
+                try {
+                    boolean eneable = false;
+                    if ("1".equalsIgnoreCase(args[1])) {
+                        eneable = true;
+                    }
+                    noyau.getPlaques().get(Integer.parseInt(args[0])).setEneable(eneable);
+                    noyau.getPlaques().get(Integer.parseInt(args[0])).setColor(Integer.parseInt(args[2].substring(0, 1)));
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-                noyau.getPlaques().get(Integer.parseInt(args[0])).setEneable(eneable);
-                noyau.getPlaques().get(Integer.parseInt(args[0])).setColor(Integer.parseInt(args[2].substring(0,1)));
             }
         });
     }
@@ -56,8 +56,7 @@ public class Communication extends Thread{
         while(run){
             byte buffer[] = new byte[512];
             try {
-                int numBytesRead = port.read(buffer, 1000);
-                port.write(buffer,1000);
+                int numBytesRead = port.read(buffer, 10);
                 if(numBytesRead > 0) {
                     receiveData(new String(buffer));
                 }
@@ -68,9 +67,10 @@ public class Communication extends Thread{
     }
 
     public void sendData(String data){
+        data+="\n";
         byte buffer[] = data.getBytes();
         try {
-            port.write(buffer,1000);
+            port.write(buffer,10);
 
         } catch (IOException e) {
             e.printStackTrace();
