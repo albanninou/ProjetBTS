@@ -14,9 +14,12 @@ int mode = -1;
 boolean eneable = false;
 int color = 0;
 String master = "master:";
+String you = "you:";
+String question = "Amaster?";
 int numOfCard = 0;
 boolean needUpdate = false;
 int count = 0;
+int connectedCard = 0;
 
 void setup() {
   
@@ -26,38 +29,73 @@ void setup() {
   Serial2.begin(115200);
   Serial.begin(9600);
   Serial2.setTimeout(10);
+  green();
+  delay(1000);
+  Serial2.println(question);
+  delay(1000);
+  while(Serial2.available() > 0) {           
+      String trame = Serial2.readString();
+      char buf[trame.length()];
+      trame.toCharArray(buf, sizeof(buf));
+      const char s[2] = "\r";
+      char *token;
+
+      token = strtok(buf, s);
+      while(token != NULL){
+          String test = token;
+          int firstListItem = test.indexOf(you);
+          if(firstListItem != -1){
+            test = test.substring(firstListItem);
+            test = test.substring(you.length());
+            Serial.println(test);
+            numOfCard = test.toInt();
+          }
+         
+          token = strtok(NULL, s);
+     }
+          
+  }
+  if(numOfCard == 0){
+    mode = 0;
+    color = 0;
+    eneable = true;
+  }else{
+    mode = 1;
+    color = 2;
+    eneable = true;
+  }
+  Serial.print("Num card :");
+  Serial.println(numOfCard);
 }
 
 void loop() {
-  if (Serial2.available() > 0) {           
+  while(Serial2.available() > 0) {           
         String trame = Serial2.readString();
+        char buf[trame.length()];
+      trame.toCharArray(buf, sizeof(buf));
+      const char s[2] = "\r";
+      char *token;
+
+      token = strtok(buf, s);
+      while(token != NULL){
+          String test = token;
+          int firstListItem = test.indexOf(master);
+          if(firstListItem != -1){
+            test = test.substring(firstListItem);
+            test = test.substring(master.length());
+            setState(test);
+          }
+          firstListItem = test.indexOf(question);
+          if(firstListItem != -1 && numOfCard == 0){
+            connectedCard++;
+           Serial2.print(you);
+           Serial2.println(connectedCard);
+          }
          
-        if(master.equalsIgnoreCase(trame.substring(0,7))){
-
-            trame = trame.substring(7);
-            Serial.println("master receive" );
-            char buf[sizeof(trame)];
-            trame.toCharArray(buf, sizeof(buf));
-            const char s[2] = "/";
-            char *token;
-             
-            token = strtok(buf, s);
-            if(token !=NULL){
-              mode = atoi( token );
-             
-            }
-            Serial.print("Mode :" );
-            Serial.println(mode );
-            token = strtok(NULL, s);
-            if(token !=NULL){
-              color = atoi( token );
-              
-            }
-            eneable = true;
-            needUpdate = true;
-
-       }    
-  }else{
+        token = strtok(NULL, s);
+     }
+  }
+    
     strip.setBrightness(BRIGHTNESS);
     
         switch(mode){
@@ -76,8 +114,9 @@ void loop() {
             
             count++;
             if(count >= NUMCOUNT){
-              setColor();
-               sendEtat();
+                sendEtat();
+               setColor();
+               
                count = 0;
             }
           
@@ -99,7 +138,7 @@ void loop() {
           
         }
         //Serial.print(count);
-  }
+  
 }
 
  void setColor(){
@@ -151,3 +190,27 @@ for (int i = 0; i < NUMPIXELS; i++) {
     strip.show();
   }
 }
+
+void setState(String trame){
+char buf[sizeof(trame)];
+            trame.toCharArray(buf, sizeof(buf));
+            const char s[2] = "/";
+            char *token;
+             
+            token = strtok(buf, s);
+            if(token !=NULL){
+              mode = atoi( token );
+             
+            }
+            Serial.print("Mode :" );
+            Serial.println(mode );
+            token = strtok(NULL, s);
+            if(token !=NULL){
+              color = atoi( token );
+              
+            }
+            eneable = true;
+            needUpdate = true;
+}
+
+
