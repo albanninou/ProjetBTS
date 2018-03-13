@@ -59,7 +59,7 @@ public class Communication extends Thread{
         while(run){
             byte buffer[] = new byte[512];
             try {
-                int numBytesRead = port.read(buffer, 100);
+                int numBytesRead = port.read(buffer, 50);
                 if(numBytesRead > 0) {
                     receiveData(new String(buffer));
                 }
@@ -73,7 +73,7 @@ public class Communication extends Thread{
         data+="\n";
         byte buffer[] = data.getBytes();
         try {
-            port.write(buffer,100);
+            port.write(buffer,50);
 
         } catch (IOException e) {
             e.printStackTrace();
