@@ -1,0 +1,14 @@
+class ModeFonctionnement
+!!!139266.java!!!	ModeFonctionnement(inout mainActivity : MainActivity)
+        this.mainActivity = mainActivity;
+!!!139394.java!!!	getFonctionnementMode() : int
+        return fonctionnementMode;
+!!!139522.java!!!	onItemSelected(inout adapterView : AdapterView<?>, inout view : View, in i : int, in l : long) : void
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mainActivity,
+                R.array.fonction_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fonctionnementMode = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
+!!!139650.java!!!	onNothingSelected(inout adapterView : AdapterView<?>) : void
+
+!!!139778.java!!!	setFonctionnementMode(in fonctionnementMode : int) : void
+        this.fonctionnementMode = fonctionnementMode;

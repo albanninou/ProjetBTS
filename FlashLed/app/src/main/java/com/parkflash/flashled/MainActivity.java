@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
         dataReceive = findViewById(R.id.receivedData);
 
-
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.fonction_array, android.R.layout.simple_spinner_item);
+                R.array.fonction_array,
+                android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(modeFonctionnement);
@@ -92,12 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,8);
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
         if (availableDrivers.isEmpty()) {
             return;
         }
-
 // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
         UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
@@ -111,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             port.open(connection);
             port.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,8);
-
-
+            noyau.setPort(port);
         } catch (IOException e) {
             // Deal with error.
         }

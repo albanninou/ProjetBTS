@@ -1,0 +1,960 @@
+format 216
+"flashled" // flashled
+  revision 2
+  modified_by 2 "alban"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  java_dir "C:\\Users\\alban\\Desktop\\ProjetBTS\\FlashLed\\app\\src\\main\\java\\com\\parkflash\\flashled/"
+  java_package "com.parkflash.flashled"
+  classview 134786 "flashled"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 135938 "ColorFonctionnement"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Created by alban on 16/01/2018.
+"
+      attribute 137858 "COLOR"
+	class_attribute public explicit_type "String"
+	init_value " \"color\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 136194 // mainActivity (<unidirectional association>)
+	relation 136194 --->
+	  a role_name "mainActivity" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 136194 // mainActivity (<unidirectional association>)
+	  b parent class_ref 136066 // MainActivity
+      end
+
+      attribute 137986 "colorFonctionnement"
+	package explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 137730 "ColorFonctionnement"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "mainActivity" type class_ref 136066 // MainActivity
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 137858 "getColorFonctionnement"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 137986 "onItemSelected"
+	public explicit_return_type "void"
+	nparams 4
+	  param inout name "adapterView" explicit_type "AdapterView<?>"
+	  param inout name "view" explicit_type "View"
+	  param in name "i" explicit_type "int"
+	  param in name "l" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 138114 "onNothingSelected"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "adapterView" explicit_type "AdapterView<?>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 138242 "setColorFonctionnement"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "colorFonctionnement" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136066 "MainActivity"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 136706 // modeFonctionnement (<unidirectional association>)
+	relation 136706 --->
+	  a role_name "modeFonctionnement" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 136706 // modeFonctionnement (<unidirectional association>)
+	  b parent class_ref 136450 // ModeFonctionnement
+      end
+
+      classrelation 136834 // colorFonctionnement (<unidirectional association>)
+	relation 136834 --->
+	  a role_name "colorFonctionnement" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 136834 // colorFonctionnement (<unidirectional association>)
+	  b parent class_ref 135938 // ColorFonctionnement
+      end
+
+      attribute 138370 "sendButton"
+	package explicit_type "Button"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 138498 "dataReceive"
+	package explicit_type "TextView"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 138626 "port"
+	package explicit_type "UsbSerialPort"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 136962 // noyau (<unidirectional association>)
+	relation 136962 --->
+	  a role_name "noyau" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 136962 // noyau (<unidirectional association>)
+	  b parent class_ref 136322 // Noyau
+      end
+
+      operation 139010 "onCreate"
+	protected explicit_return_type "void"
+	nparams 1
+	  param inout name "savedInstanceState" explicit_type "Bundle"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 139138 "onDestroy"
+	protected explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+	comment "Notifications from UsbService will be received here.
+"
+      end
+    end
+
+    class 136194 "Communication"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Created by alban on 12/02/2018.
+"
+      classrelation 136450 // noyau (<unidirectional association>)
+	relation 136450 --->
+	  a role_name "noyau" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 136450 // noyau (<unidirectional association>)
+	  b parent class_ref 136322 // Noyau
+      end
+
+      attribute 138114 "run"
+	package explicit_type "boolean"
+	init_value " true"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 138242 "port"
+	package explicit_type "UsbSerialPort"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 138370 "Communication"
+	public explicit_return_type ""
+	nparams 2
+	  param inout name "noyau" type class_ref 136322 // Noyau
+	  param inout name "port" explicit_type "UsbSerialPort"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 138498 "write"
+	class_operation public explicit_return_type "void"
+	nparams 2
+	  param inout name "colorFonctionnement" type class_ref 135938 // ColorFonctionnement
+	  param inout name "modeFonctionnement" type class_ref 136450 // ModeFonctionnement
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 138626 "receiveData"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "data" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 138754 "run"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 138882 "sendData"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "data" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136322 "Noyau"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Created by alban on 12/02/2018.
+"
+      classrelation 137346 // colorFonctionnement (<unidirectional association>)
+	relation 137346 --->
+	  a role_name "colorFonctionnement" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137346 // colorFonctionnement (<unidirectional association>)
+	  b parent class_ref 135938 // ColorFonctionnement
+      end
+
+      classrelation 137474 // modeFonctionnement (<unidirectional association>)
+	relation 137474 --->
+	  a role_name "modeFonctionnement" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137474 // modeFonctionnement (<unidirectional association>)
+	  b parent class_ref 136450 // ModeFonctionnement
+      end
+
+      classrelation 137602 // communication (<unidirectional association>)
+	relation 137602 --->
+	  a role_name "communication" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137602 // communication (<unidirectional association>)
+	  b parent class_ref 136194 // Communication
+      end
+
+      classrelation 137730 // mainActivity (<unidirectional association>)
+	relation 137730 --->
+	  a role_name "mainActivity" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137730 // mainActivity (<unidirectional association>)
+	  b parent class_ref 136066 // MainActivity
+      end
+
+      attribute 139010 "context"
+	package explicit_type "Context"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 139138 "nbPlaque"
+	package explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 139906 "getPlaques"
+	public return_type class_ref 136578 // Plaque
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}List<${type}> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      classrelation 137858 // plaques (<unidirectional association>)
+	relation 137858 --->
+	  stereotype "List"
+	  a role_name "plaques" init_value " new ArrayList<>()" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	    classrelation_ref 137858 // plaques (<unidirectional association>)
+	  b parent class_ref 136578 // Plaque
+      end
+
+      operation 140034 "Noyau"
+	public explicit_return_type ""
+	nparams 5
+	  param inout name "mainActivity" type class_ref 136066 // MainActivity
+	  param inout name "context" explicit_type "Context"
+	  param inout name "colorFonctionnement" type class_ref 135938 // ColorFonctionnement
+	  param inout name "modeFonctionnement" type class_ref 136450 // ModeFonctionnement
+	  param in name "nbPlaque" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140162 "getColorFonctionnement"
+	public return_type class_ref 135938 // ColorFonctionnement
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140290 "setColorFonctionnement"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "colorFonctionnement" type class_ref 135938 // ColorFonctionnement
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140418 "getModeFonctionnement"
+	public return_type class_ref 136450 // ModeFonctionnement
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140546 "setModeFonctionnement"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "modeFonctionnement" type class_ref 136450 // ModeFonctionnement
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140674 "setDataReceive"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "dataReceive" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}final ${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 140802 "send"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136450 "ModeFonctionnement"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Created by alban on 16/01/2018.
+"
+      attribute 138754 "MODE"
+	class_attribute public explicit_type "String"
+	init_value " \"mode\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 137218 // mainActivity (<unidirectional association>)
+	relation 137218 --->
+	  a role_name "mainActivity" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137218 // mainActivity (<unidirectional association>)
+	  b parent class_ref 136066 // MainActivity
+      end
+
+      attribute 138882 "fonctionnementMode"
+	package explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 139266 "ModeFonctionnement"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "mainActivity" type class_ref 136066 // MainActivity
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 139394 "getFonctionnementMode"
+	public explicit_return_type "int"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 139522 "onItemSelected"
+	public explicit_return_type "void"
+	nparams 4
+	  param inout name "adapterView" explicit_type "AdapterView<?>"
+	  param inout name "view" explicit_type "View"
+	  param in name "i" explicit_type "int"
+	  param in name "l" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 139650 "onNothingSelected"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "adapterView" explicit_type "AdapterView<?>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 139778 "setFonctionnementMode"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "fonctionnementMode" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136578 "Plaque"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Created by alban on 12/02/2018.
+"
+      attribute 139266 "isEneable"
+	private explicit_type "boolean"
+	init_value " false"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 139394 "color"
+	private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 139522 "index"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 139650 "image"
+	package explicit_type "ImageView"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 137986 // mainActivity (<unidirectional association>)
+	relation 137986 --->
+	  a role_name "mainActivity" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 137986 // mainActivity (<unidirectional association>)
+	  b parent class_ref 136066 // MainActivity
+      end
+
+      operation 140930 "Plaque"
+	public explicit_return_type ""
+	nparams 2
+	  param inout name "mainActivity" type class_ref 136066 // MainActivity
+	  param in name "index" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 141058 "setEneable"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "isEneable" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 141186 "update"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 141314 "setColor"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "color" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}final ${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    classdiagram 134530 "FlashLed"
+      classdiagramsettings member_max_width 0 end
+      size D-Landscape
+    end
+  end
+
+  deploymentview 134786 "flashled"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 135682 "ColorFonctionnement"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+${definition}"
+      associated_elems
+	class_ref 135938 // ColorFonctionnement
+      end
+    end
+
+    artifact 135810 "Communication"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.widget.Toast;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import java.io.IOException;
+${definition}"
+      associated_elems
+	class_ref 136194 // Communication
+      end
+    end
+
+    artifact 135938 "MainActivity"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.Set;
+import android.content.ComponentName;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import com.hoho.android.usbserial.driver.UsbSerialProber;
+${definition}"
+      associated_elems
+	class_ref 136066 // MainActivity
+      end
+    end
+
+    artifact 136066 "ModeFonctionnement"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+${definition}"
+      associated_elems
+	class_ref 136450 // ModeFonctionnement
+      end
+    end
+
+    artifact 136194 "Noyau"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.content.Context;
+import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
+${definition}"
+      associated_elems
+	class_ref 136322 // Noyau
+      end
+    end
+
+    artifact 136322 "Plaque"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import android.support.constraint.ConstraintLayout;
+import android.widget.ImageView;
+${definition}"
+      associated_elems
+	class_ref 136578 // Plaque
+      end
+    end
+  end
+end

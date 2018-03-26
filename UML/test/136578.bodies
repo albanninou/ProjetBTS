@@ -1,0 +1,61 @@
+class Plaque
+!!!140930.java!!!	Plaque(inout mainActivity : MainActivity, in index : int)
+        this.mainActivity = mainActivity;
+        this.index = index;
+        image = new ImageView(mainActivity);
+        image.setScaleX(30);
+        image.setScaleY(40);
+        image.setX(100 + 150*(index%4));
+        image.setY(300 + 500*(index/4));
+        setEneable(false);
+
+        final ConstraintLayout ll = (ConstraintLayout)mainActivity.findViewById(R.id.layout);
+        final ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.TOP, ConstraintLayout.LayoutParams.START);
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ll.addView(image, lp);
+                update();
+            }
+        });
+
+
+
+!!!141058.java!!!	setEneable(inout isEneable : boolean) : void
+        this.isEneable = isEneable;
+        if(isEneable){
+            setColor(color);
+        }else{
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    image.setImageResource(R.drawable.off);
+                }
+            });
+        }
+!!!141186.java!!!	update() : void
+        setEneable(isEneable);
+        setColor(color);
+!!!141314.java!!!	setColor(in color : int) : void
+        this.color = color;
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(isEneable){
+                    switch (color){
+                        case 0 :
+                            image.setImageResource(R.drawable.red);
+                            break;
+                        case 1 :
+                            image.setImageResource(R.drawable.green);
+                            break;
+                        case 2 :
+                            image.setImageResource(R.drawable.blue);
+                            break;
+                    }
+                }else{
+                    image.setImageResource(R.drawable.off);
+                }
+            }
+        });
+

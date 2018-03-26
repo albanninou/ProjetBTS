@@ -18,8 +18,11 @@ String you = "you:";
 String question = "Amaster?";
 int numOfCard = 0;
 boolean needUpdate = false;
+boolean masterState = false;
+String tick = "tick";
 int count = 0;
 int connectedCard = 0;
+String needToSend = "";
 
 void setup() {
   
@@ -37,12 +40,14 @@ void setup() {
       String trame = Serial2.readString();
       char buf[trame.length()];
       trame.toCharArray(buf, sizeof(buf));
-      const char s[2] = "\r";
+      const char s[2] = "\n";
       char *token;
 
       token = strtok(buf, s);
       while(token != NULL){
           String test = token;
+          Serial.println("-------");
+          Serial.println(test);
           int firstListItem = test.indexOf(you);
           if(firstListItem != -1){
             test = test.substring(firstListItem);
@@ -73,7 +78,7 @@ void loop() {
         String trame = Serial2.readString();
         char buf[trame.length()];
       trame.toCharArray(buf, sizeof(buf));
-      const char s[2] = "\r";
+      const char s[2] = "\n";
       char *token;
 
       token = strtok(buf, s);
@@ -88,8 +93,29 @@ void loop() {
           firstListItem = test.indexOf(question);
           if(firstListItem != -1 && numOfCard == 0){
             connectedCard++;
-           Serial2.print(you);
-           Serial2.println(connectedCard);
+            needToSend +=you;
+            needToSend+=connectedCard;
+            needToSend+="\n";
+          }
+          firstListItem = test.indexOf(tick);
+          if(firstListItem != -1 && numOfCard != 0){
+            
+            test = test.substring(firstListItem);
+           
+            test = test.substring(tick.length()+1);
+ 
+            char buf25[sizeof(test)];
+            test.toCharArray(buf25, sizeof(buf25));
+            
+            int d = atoi(buf25);
+            if(d == 0){
+             numOfCard = 0;
+              masterState = false;
+            }else{
+              masterState = true;
+             numOfCard = 0;
+            }
+            sendEtat();
           }
          
         token = strtok(NULL, s);
@@ -97,33 +123,41 @@ void loop() {
   }
     
     strip.setBrightness(BRIGHTNESS);
-    
+    if(numOfCard == 0){
+      count++;
+    }
         switch(mode){
           case -1:
            
-            count++;
-            if(count >= NUMCOUNT){
+            
+            if(count >= NUMCOUNT || masterState){
                blank();
                sendEtat();
+               masterState = false;
+               if(numOfCard == 0){
                count = 0;
+               }
             }
           
           break;
           case 0:
           
             
-            count++;
-            if(count >= NUMCOUNT){
+           
+            if(count >= NUMCOUNT || masterState){
                 sendEtat();
                setColor();
-               
+               masterState = false;
+               if(numOfCard == 0){
                count = 0;
+               }
             }
           
           break;
            case 1:
-            count++;
-            if(count >= NUMCOUNT){
+            
+            if(count >= NUMCOUNT|| masterState){
+                masterState = false;
                eneable = !eneable;
                if(eneable){
                 setColor();
@@ -132,12 +166,20 @@ void loop() {
                 
                }
                sendEtat();
+               if(numOfCard == 0){
                count = 0;
+               }
             }
           break;
           
         }
-        //Serial.print(count);
+        
+        if(needToSend != ""){
+          
+          Serial2.print(needToSend);
+          needToSend="";
+          
+        }
   
 }
 
@@ -157,12 +199,20 @@ void loop() {
 
 void sendEtat(){
   char str[20];
+  if(numOfCard == 0){
+    if(eneable){
+      needToSend+=tick+"/1"+"\n";
+    }else{
+      needToSend+=tick+"/0"+"\n";
+    }
+  }
   if(eneable){
-  sprintf(str, "%d/1/%d", numOfCard,color);
+    sprintf(str, "%d/1/%d", numOfCard,color);
   }else{
     sprintf(str, "%d/0/%d", numOfCard,color);
   }
-  Serial2.println(str);
+  needToSend+=str;
+  needToSend+="\n";
 }
 
  void blank(){

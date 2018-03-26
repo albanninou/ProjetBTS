@@ -1,6 +1,6 @@
 format 216
 "test"
-  revision 3
+  revision 4
   modified_by 2 "alban"
 
 
@@ -47,7 +47,5 @@ format 216
   key "gxmi gen views" value "no"
   key "gxmi encoding" value ""
   key "gxmi taggedvalue" value "0"
-  package_ref 128002 // project
-
-  package_ref 128130 // unknown
+  package_ref 134786 // flashled
 end

@@ -1,0 +1,14 @@
+class ColorFonctionnement
+!!!137730.java!!!	ColorFonctionnement(inout mainActivity : MainActivity)
+        this.mainActivity = mainActivity;
+!!!137858.java!!!	getColorFonctionnement() : int
+        return colorFonctionnement;
+!!!137986.java!!!	onItemSelected(inout adapterView : AdapterView<?>, inout view : View, in i : int, in l : long) : void
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mainActivity,
+                R.array.color_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        colorFonctionnement = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
+!!!138114.java!!!	onNothingSelected(inout adapterView : AdapterView<?>) : void
+
+!!!138242.java!!!	setColorFonctionnement(in colorFonctionnement : int) : void
+        this.colorFonctionnement = colorFonctionnement;

@@ -1,33 +1,19 @@
-package com.parkflash.project;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+package com.parkflash;
 
 /**
  * Created by alban on 16/01/2018.
  */
-
 public class Bluetooth {
-    public static String BLUETOOTH_DEVICE = "device";
-    MainActivity mainActivity;
-    BluetoothAdapter mBluetoothAdapter;
-    HashMap<String, BluetoothDevice> bluetoothDeviceMap;
+  MainActivity mainActivity;
 
-    public boolean isEneable;
-    private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener() {
+  BluetoothAdapter mBluetoothAdapter;
+
+  String, BluetoothDevice bluetoothDeviceMap;
+
+  public static String BLUETOOTH_DEVICE =  "device";
+
+  private AdapterView.OnItemClickListener myListClickListener =  new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
             // Get the device MAC address, the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
@@ -40,17 +26,17 @@ public class Bluetooth {
             mainActivity.startActivity(i);
         }
     };
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    public final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+  /**
+   *  Create a BroadcastReceiver for ACTION_FOUND.
+   */
+  public final BroadcastReceiver mReceiver =  new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
                 Log.e("parkflash", "start realy scan");
-                bluetoothDeviceMap.clear();
-                pairedDevicesList();
             }
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                mainActivity.reScan.setEnabled(true);
                 //Log.e("parkflash", "scan finish");
             }
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
@@ -63,9 +49,8 @@ public class Bluetooth {
         }
     };
 
-    public Bluetooth(MainActivity mainActivity) {
+  public  Bluetooth(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        isEneable = false;
         BluetoothManager mBluetoothManager = (BluetoothManager) mainActivity.getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         bluetoothDeviceMap = new HashMap<String, BluetoothDevice>();
@@ -82,23 +67,21 @@ public class Bluetooth {
             mainActivity.startActivityForResult(enableBtIntent, MainActivity.REQUEST_ENABLE_BLUETOOTH_BT);
         } else {
             Log.e("ParkFlash", "bluethoot deja activer");
-            isEneable = true;
             startScan();
         }
-    }
+  }
 
-    public void startScan() {
+  public void startScan() {
         Log.e("parkflash", "start scan");
-        mainActivity.reScan.setEnabled(false);
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         mainActivity.registerReceiver(mReceiver, filter);
         mBluetoothAdapter.startDiscovery();
-    }
+  }
 
-    public void pairedDevicesList() {
+  public void pairedDevicesList() {
         ArrayList list = new ArrayList();
         if (bluetoothDeviceMap.size() > 0) {
             for (BluetoothDevice bt : bluetoothDeviceMap.values()) {
@@ -108,13 +91,10 @@ public class Bluetooth {
         final ArrayAdapter adapter = new ArrayAdapter(mainActivity, android.R.layout.simple_list_item_1, list);
         mainActivity.list.setAdapter(adapter);
         mainActivity.list.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
-    }
+  }
 
-    public void onDestroy() {
+  public void onDestroy() {
         mainActivity.unregisterReceiver(mReceiver);
-    }
+  }
 
-    public int pow(int x) {
-        return x*x;
-    }
 }

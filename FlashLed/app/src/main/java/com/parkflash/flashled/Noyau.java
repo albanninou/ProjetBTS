@@ -3,6 +3,8 @@ package com.parkflash.flashled;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +38,9 @@ public class Noyau {
             plaque.setColor(colorFonctionnement.getColorFonctionnement());
             plaques.add(plaque);
         }
-        communication = new Communication(this,mainActivity.port);
-        communication.start();
+
     }
+
 
     public ColorFonctionnement getColorFonctionnement() {
         return colorFonctionnement;
@@ -68,5 +70,10 @@ public class Noyau {
 
     public void send() {
         communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());
+    }
+
+    public void setPort(UsbSerialPort port) {
+        communication = new Communication(this,port);
+        communication.start();
     }
 }

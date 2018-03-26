@@ -1,0 +1,34 @@
+class Noyau
+!!!139906.java!!!	getPlaques() : Plaque
+        return plaques;
+!!!140034.java!!!	Noyau(inout mainActivity : MainActivity, inout context : Context, inout colorFonctionnement : ColorFonctionnement, inout modeFonctionnement : ModeFonctionnement, in nbPlaque : int)
+        this.colorFonctionnement = colorFonctionnement;
+        this.modeFonctionnement = modeFonctionnement;
+        this.context = context;
+        this.nbPlaque = nbPlaque;
+        this.mainActivity = mainActivity;
+        for(int i = 0; i < nbPlaque;i++){
+            Plaque plaque = new Plaque(mainActivity,i);
+            plaque.setColor(colorFonctionnement.getColorFonctionnement());
+            plaques.add(plaque);
+        }
+        communication = new Communication(this,mainActivity.port);
+        communication.start();
+!!!140162.java!!!	getColorFonctionnement() : ColorFonctionnement
+        return colorFonctionnement;
+!!!140290.java!!!	setColorFonctionnement(inout colorFonctionnement : ColorFonctionnement) : void
+        this.colorFonctionnement = colorFonctionnement;
+!!!140418.java!!!	getModeFonctionnement() : ModeFonctionnement
+        return modeFonctionnement;
+!!!140546.java!!!	setModeFonctionnement(inout modeFonctionnement : ModeFonctionnement) : void
+        this.modeFonctionnement = modeFonctionnement;
+!!!140674.java!!!	setDataReceive(in dataReceive : String) : void
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //mainActivity.dataReceive.getText();
+                mainActivity.dataReceive.setText(dataReceive);
+            }
+        });
+!!!140802.java!!!	send() : void
+        communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());

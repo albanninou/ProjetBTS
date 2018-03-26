@@ -1,16 +1,13 @@
-window_sizes 1920 1048 450 1464 866 128
+window_sizes 1920 1001 450 1464 819 128
 
 diagrams
-  active  classdiagram_ref 128002 // test
-    1464 819 70 A0 0 0
+  active  classdiagram_ref 134530 // FlashLed
+    5844 1340 200 D-Landscape 0 0
 end
 show_stereotypes
-selected deploymentview_ref 128002 // project
+selected class_ref 136578 // Plaque
 open
-  class_ref 128770 // MainActivity
-  classview_ref 128130 // unknown
-  classview_ref 128258 // AdapterView
-  deploymentview_ref 128258 // AdapterView
-  deploymentview_ref 128130 // unknown
+  classview_ref 134786 // flashled
+  deploymentview_ref 134786 // flashled
 end
 end

@@ -1,0 +1,53 @@
+class Communication
+!!!138370.java!!!	Communication(inout noyau : Noyau, inout port : UsbSerialPort)
+        this.noyau = noyau;
+        this.port = port;
+!!!138498.java!!!	write(inout colorFonctionnement : ColorFonctionnement, inout modeFonctionnement : ModeFonctionnement) : void
+        int color = colorFonctionnement.getColorFonctionnement();
+        int mode = modeFonctionnement.getFonctionnementMode();
+
+!!!138626.java!!!	receiveData(in data : String) : void
+        noyau.setDataReceive(data);
+        final String[] ligne = data.split("\r");
+        for(String l:ligne) {
+            final String[] args = l.split("/");
+            if (args.length < 3) {
+                continue;
+            }//1/1/2
+            noyau.mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        boolean eneable = false;
+                        if ("1".equalsIgnoreCase(args[1])) {
+                            eneable = true;
+                        }
+                        noyau.getPlaques().get(Integer.parseInt(args[0])).setEneable(eneable);
+                        noyau.getPlaques().get(Integer.parseInt(args[0])).setColor(Integer.parseInt(args[2].substring(0, 1)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+!!!138754.java!!!	run() : void
+        while(run){
+            byte buffer[] = new byte[512];
+            try {
+                int numBytesRead = port.read(buffer, 50);
+                if(numBytesRead > 0) {
+                    receiveData(new String(buffer));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+!!!138882.java!!!	sendData(in data : String) : void
+        data+="\n";
+        byte buffer[] = data.getBytes();
+        try {
+            port.write(buffer,50);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
