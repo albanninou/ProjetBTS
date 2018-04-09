@@ -26,16 +26,13 @@ public class ColorFonctionnement implements AdapterView.OnItemSelectedListener {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mainActivity,
                 R.array.color_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //get selected color
         colorFonctionnement = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
-
-    public void setColorFonctionnement(int colorFonctionnement) {
-        this.colorFonctionnement = colorFonctionnement;
     }
 }
 

@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         dataReceive = findViewById(R.id.receivedData);
 
+        //spinner for chose fonctionnement
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.fonction_array,
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(modeFonctionnement);
 
+        //spinner for chose color
         Spinner spinner2 = findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.color_array, android.R.layout.simple_spinner_item);
