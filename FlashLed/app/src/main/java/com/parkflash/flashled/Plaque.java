@@ -4,7 +4,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,31 +38,46 @@ public class Plaque {
         }
         DisplayMetrics displayMetrics = new DisplayMetrics();
         mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        float h =(height/720.0f);
-
-        float w =(width/320.0f);
-        text.setTextSize((float) 20);
-        text.setX((40 + 60*(index%4))*w);
-        text.setY((160*(index/4))*h);
+        final int height = displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
+        final GridLayout gridLayout = mainActivity.findViewById(R.id.gridLayout);
+        final LinearLayout container = mainActivity.findViewById(R.id.container);
+        float h = gridLayout.getHeight();
+        float w = gridLayout.getWidth();
+        //text.setTextSize((float) 20);
+        //text.setX((40 + 60*(index%4))*w);
+        //text.setY((160*(index/4))*h);
         image = new ImageView(mainActivity);
-        image.setScaleX(12*w);
-        image.setScaleY(20*h);
-        image.setX((50 + 60*(index%4))*w);
-        image.setY((90 + 160*(index/4))*h);
+
+        //image.setX((50 + 60*(index%4))*w);
+        //image.setY((90 + 160*(index/4))*h);*/
         setEneable(false);
         setCharge(index);
         ConstraintLayout.LayoutParams clpcontactUs = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         text.setLayoutParams(clpcontactUs);
-        final ConstraintLayout ll = (ConstraintLayout)mainActivity.findViewById(R.id.layout);
-        final ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.TOP, ConstraintLayout.LayoutParams.START);
+
+        text.setLayoutParams(
+                new GridLayout.LayoutParams(
+                        GridLayout.spec((index/4)*2, GridLayout.FILL),
+                        GridLayout.spec((index%4), GridLayout.FILL)
+                ));
+        image.setLayoutParams(
+                new GridLayout.LayoutParams(
+                        GridLayout.spec(((index/4)+1)*2-1, GridLayout.FILL),
+                        GridLayout.spec((index%4), GridLayout.FILL)
+                ));
+
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ll.addView(image, lp);
-                ll.addView(text);
+
+                gridLayout.addView(image);
+                gridLayout.addView(text);
+                image.getLayoutParams().width = (int)(width/4.5f);
+                image.getLayoutParams().height = (int)(height/6f);
+                image.requestLayout();
+                gridLayout.requestLayout();
                 update();
             }
         });
@@ -74,7 +92,7 @@ public class Plaque {
             @Override
             public void run() {
 
-                text.setText(charge + "%");
+                text.setText( "      " +charge + "%");
             }
         });
     }

@@ -69,7 +69,11 @@ public class Noyau {
     }
 
     public void send() {
-        communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());
+        if(communication != null){
+            communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());
+        }else{
+            setDataReceive("Le module xbee ne semble pas branché");
+        }
     }
 
     public void setPort(UsbSerialPort port) {
