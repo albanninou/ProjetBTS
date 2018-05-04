@@ -1,0 +1,12 @@
+window_sizes 1800 910 450 1345 760 104
+
+diagrams
+  active  classdiagram_ref 134530 // FlashLed
+    1345 760 69 D-Landscape 0 0
+end
+show_stereotypes
+selected classdiagram_ref 134530 // FlashLed
+open
+  class_ref 135938 // ColorFonctionnement
+end
+end

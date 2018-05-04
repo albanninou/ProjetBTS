@@ -1,7 +1,7 @@
-format 216
+format 218
 "flashled" // flashled
-  revision 2
-  modified_by 2 "alban"
+  revision 3
+  modified_by 3 "Mod_loc"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -824,7 +824,7 @@ ${members}}
     end
 
     classdiagram 134530 "FlashLed"
-      classdiagramsettings member_max_width 0 end
+      classdiagramsettings draw_all_relations no member_max_width 0 end
       size D-Landscape
     end
   end
