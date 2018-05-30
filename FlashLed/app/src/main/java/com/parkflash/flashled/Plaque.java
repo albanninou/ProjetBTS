@@ -27,14 +27,13 @@ public class Plaque {
     MainActivity mainActivity;
 
 
-
-    public Plaque(MainActivity mainActivity, int index){
+    public Plaque(MainActivity mainActivity, int index) {
         this.mainActivity = mainActivity;
         this.index = index;
 
         text = new TextView(mainActivity);
-        if(text == null){
-            Toast.makeText(mainActivity,"fiojriojf",Toast.LENGTH_SHORT).show();
+        if (text == null) {
+            Toast.makeText(mainActivity, "fiojriojf", Toast.LENGTH_SHORT).show();
         }
         DisplayMetrics displayMetrics = new DisplayMetrics();
         mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -59,13 +58,13 @@ public class Plaque {
 
         text.setLayoutParams(
                 new GridLayout.LayoutParams(
-                        GridLayout.spec((index/4)*2, GridLayout.FILL),
-                        GridLayout.spec((index%4), GridLayout.FILL)
+                        GridLayout.spec((index / 4) * 2, GridLayout.FILL),
+                        GridLayout.spec((index % 4), GridLayout.FILL)
                 ));
         image.setLayoutParams(
                 new GridLayout.LayoutParams(
-                        GridLayout.spec(((index/4)+1)*2-1, GridLayout.FILL),
-                        GridLayout.spec((index%4), GridLayout.FILL)
+                        GridLayout.spec(((index / 4) + 1) * 2 - 1, GridLayout.FILL),
+                        GridLayout.spec((index % 4), GridLayout.FILL)
                 ));
 
         mainActivity.runOnUiThread(new Runnable() {
@@ -74,8 +73,8 @@ public class Plaque {
 
                 gridLayout.addView(image);
                 gridLayout.addView(text);
-                image.getLayoutParams().width = (int)(width/4.5f);
-                image.getLayoutParams().height = (int)(height/6f);
+                image.getLayoutParams().width = (int) (width / 4.5f);
+                image.getLayoutParams().height = (int) (height / 6f);
                 image.requestLayout();
                 gridLayout.requestLayout();
                 update();
@@ -83,61 +82,44 @@ public class Plaque {
         });
 
 
-
     }
 
-    public void setCharge(final int charge){
+    public void setCharge(final int charge) {
         this.charge = charge;
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                text.setText( "      " +charge + "%");
-            }
-        });
+        text.setText("      " + charge + "%");
     }
 
-    public void setEneable(boolean isEneable){
+    public void setEneable(boolean isEneable) {
         this.isEneable = isEneable;
-        if(isEneable){
+        if (isEneable) {
             setColor(color);
-        }else{
-            mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    image.setImageResource(R.drawable.off);
-                }
-            });
+        } else {
+            image.setImageResource(R.drawable.off);
         }
     }
 
-    public void update(){
+    public void update() {
         setEneable(isEneable);
         setColor(color);
     }
-    public void setColor(final int color){
-        this.color = color;
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(isEneable){
-                    switch (color){
-                        case 0 :
-                            image.setImageResource(R.drawable.red);
-                            break;
-                        case 1 :
-                            image.setImageResource(R.drawable.green);
-                            break;
-                        case 2 :
-                            image.setImageResource(R.drawable.blue);
-                            break;
-                    }
-                }else{
-                    image.setImageResource(R.drawable.off);
-                }
-            }
-        });
 
+    public void setColor(final int color) {
+        this.color = color;
+        if (isEneable) {
+            switch (color) {
+                case 0:
+                    image.setImageResource(R.drawable.red);
+                    break;
+                case 1:
+                    image.setImageResource(R.drawable.green);
+                    break;
+                case 2:
+                    image.setImageResource(R.drawable.blue);
+                    break;
+            }
+        } else {
+            image.setImageResource(R.drawable.off);
+        }
     }
 
 }

@@ -59,13 +59,7 @@ public class Noyau {
     }
 
     public void setDataReceive(final String dataReceive){
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //mainActivity.dataReceive.getText();
-                mainActivity.dataReceive.setText(dataReceive);
-            }
-        });
+        mainActivity.dataReceive.append("\n"+dataReceive);
     }
 
     public void send() {

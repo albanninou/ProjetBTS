@@ -111,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-// Read some data! Most have just one port (port 0).
+        // Récuperation du port serie
         port = driver.getPorts().get(0);
         try {
             port.open(connection);
-            port.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            port.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             noyau.setPort(port);
         } catch (IOException e) {
             // Deal with error.
