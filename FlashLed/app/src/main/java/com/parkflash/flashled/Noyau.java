@@ -59,12 +59,12 @@ public class Noyau {
     }
 
     public void setDataReceive(final String dataReceive){
-        mainActivity.dataReceive.append("\n"+dataReceive);
+        mainActivity.dataReceive.append("\n-----\n"+dataReceive);
     }
 
     public void send() {
         if(communication != null){
-            communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement());
+            communication.sendData("master:"+modeFonctionnement.getFonctionnementMode()+"/"+colorFonctionnement.getColorFonctionnement()+";\n");
         }else{
             setDataReceive("Le module xbee ne semble pas branché");
         }

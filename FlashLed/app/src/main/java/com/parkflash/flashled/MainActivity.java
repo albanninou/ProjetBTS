@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         port = driver.getPorts().get(0);
         try {
             port.open(connection);
-            port.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            port.setParameters(38400, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             noyau.setPort(port);
         } catch (IOException e) {
             // Deal with error.

@@ -27,8 +27,10 @@ public class Communication extends Thread{
     public void receiveData(String data) {
         noyau.setDataReceive(data);
         // split all line with '\n'
-        final String[] ligne = data.split("\n");
+        final String[] ligne = data.split(";");
         for (String l : ligne) {
+            l.replace(";","");
+            l.replace("\n","");
             // in all line split with '/'
             final String[] args = l.split("/");
             if (args.length == 4) {
@@ -46,8 +48,7 @@ public class Communication extends Thread{
                     //set the lvl of charge in view
                     noyau.getPlaques().get(Integer.parseInt(args[0])).setCharge(Integer.parseInt(args[3]));
                 } catch (Exception e) {
-                    //parseInt fail , a bad caractere are receive
-                    e.printStackTrace();
+
                 }
 
             }
@@ -58,10 +59,11 @@ public class Communication extends Thread{
     public void run(){
         //read all time
         while(run){
-            final byte buffer[] = new byte[512];
+            final byte buffer[] = new byte[1024];
             try {
                 //read data receive
-                int numBytesRead = port.read(buffer, 100);
+
+                int numBytesRead = port.read(buffer, 50);
                 //check if you read a byte or not cause numBytesRead can be null , cause of timeout
                 if(numBytesRead > 0) {
                     noyau.mainActivity.runOnUiThread(new Runnable() {
