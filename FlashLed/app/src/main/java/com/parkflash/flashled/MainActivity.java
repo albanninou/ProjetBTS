@@ -1,52 +1,23 @@
 package com.parkflash.flashled;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.Set;
-import android.content.ComponentName;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
-import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
     UsbSerialPort port;
     Noyau noyau;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         sendButton = findViewById(R.id.button);
@@ -82,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.fonction_array,
-                android.R.layout.simple_spinner_item);
+                android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(modeFonctionnement);
@@ -95,19 +64,16 @@ public class MainActivity extends AppCompatActivity {
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(colorFonctionnement);
 
-
-
         noyau = new Noyau(this,this,colorFonctionnement,modeFonctionnement,8);
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
         if (availableDrivers.isEmpty()) {
             return;
         }
-// Open a connection to the first available driver.
+        // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
         UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
         if (connection == null) {
-            // You probably need to call UsbManager.requestPermission(driver.getDevice(), ..)
             return;
         }
 
@@ -120,11 +86,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             // Deal with error.
         }
-
-
     }
-
-
 
     /*
      * Notifications from UsbService will be received here.

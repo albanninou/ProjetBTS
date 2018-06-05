@@ -1,16 +1,11 @@
 package com.parkflash.flashled;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by alban on 12/02/2018.
- */
 
 public class Noyau {
 
@@ -38,28 +33,10 @@ public class Noyau {
             plaque.setColor(colorFonctionnement.getColorFonctionnement());
             plaques.add(plaque);
         }
-
-    }
-
-
-    public ColorFonctionnement getColorFonctionnement() {
-        return colorFonctionnement;
-    }
-
-    public void setColorFonctionnement(ColorFonctionnement colorFonctionnement) {
-        this.colorFonctionnement = colorFonctionnement;
-    }
-
-    public ModeFonctionnement getModeFonctionnement() {
-        return modeFonctionnement;
-    }
-
-    public void setModeFonctionnement(ModeFonctionnement modeFonctionnement) {
-        this.modeFonctionnement = modeFonctionnement;
     }
 
     public void setDataReceive(final String dataReceive){
-        mainActivity.dataReceive.append("\n-----\n"+dataReceive);
+        mainActivity.dataReceive.setText(dataReceive);
     }
 
     public void send() {

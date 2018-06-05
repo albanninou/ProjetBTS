@@ -6,33 +6,43 @@
     android:layout_height="match_parent"
     tools:context="com.parkflash.flashled.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/fond" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choix du mode de fonctionnement :"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintVertical_bias="0.032" />
+
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="257dp"
+        android:layout_width="200dp"
         android:layout_height="21dp"
-        android:layout_marginLeft="52dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="52dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"></Spinner>
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="257dp"
+        android:layout_width="200dp"
         android:layout_height="21dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"></Spinner>
 
@@ -40,7 +50,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Envoyer"
@@ -53,7 +63,7 @@
         android:id="@+id/receivedData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="453dp"
         android:scrollbars="vertical"
         android:text=""
         android:maxLines = "8"

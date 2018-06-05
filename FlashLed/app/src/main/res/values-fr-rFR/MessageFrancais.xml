@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="fonction_array">
-        <item>Allumage continue</item>
+        <item>Allumage continu</item>
         <item>Clignotement</item>
         <item>Chenillard</item>
     </string-array>

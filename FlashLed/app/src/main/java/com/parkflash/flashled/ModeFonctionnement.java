@@ -4,12 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-/**
- * Created by alban on 16/01/2018.
- */
-
 public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
-    public static String MODE = "mode";
     MainActivity mainActivity;
     int fonctionnementMode;
 
@@ -34,7 +29,4 @@ public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
 
     }
 
-    public void setFonctionnementMode(int fonctionnementMode) {
-        this.fonctionnementMode = fonctionnementMode;
-    }
 }

@@ -1,14 +1,9 @@
 package com.parkflash.flashled;
 
-import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 
 import java.io.IOException;
-
-/**
- * Created by alban on 12/02/2018.
- */
 
 public class Communication extends Thread{
 
@@ -16,33 +11,24 @@ public class Communication extends Thread{
     boolean run = true;
     UsbSerialPort port;
 
-
     public Communication(Noyau noyau,UsbSerialPort port){
         this.noyau = noyau;
         this.port = port;
     }
 
-
     //data receive
     public void receiveData(String data) {
         noyau.setDataReceive(data);
-        // split all line with '\n'
+        // split all line with ';'
         final String[] ligne = data.split(";");
         for (String l : ligne) {
-            l.replace(";","");
-            l.replace("\n","");
-            // in all line split with '/'
+            l = l.replace(";","");
+            l = l.replace("\n","");
             final String[] args = l.split("/");
             if (args.length == 4) {
-
                 try {
-                    //check if plaque is on or off
-                    boolean eneable = false;
-                    if ("1".equalsIgnoreCase(args[1])) {
-                        eneable = true;
-                    }
                     //set the state on view
-                    noyau.getPlaques().get(Integer.parseInt(args[0])).setEneable(eneable);
+                    noyau.getPlaques().get(Integer.parseInt(args[0])).setEneable("1".equalsIgnoreCase(args[1]));
                     //set the color on view
                     noyau.getPlaques().get(Integer.parseInt(args[0])).setColor(Integer.parseInt(args[2]));
                     //set the lvl of charge in view
@@ -50,7 +36,6 @@ public class Communication extends Thread{
                 } catch (Exception e) {
 
                 }
-
             }
         }
     }
@@ -62,7 +47,6 @@ public class Communication extends Thread{
             final byte buffer[] = new byte[1024];
             try {
                 //read data receive
-
                 int numBytesRead = port.read(buffer, 50);
                 //check if you read a byte or not cause numBytesRead can be null , cause of timeout
                 if(numBytesRead > 0) {
@@ -76,7 +60,6 @@ public class Communication extends Thread{
             } catch(IOException e){
                run = false;
             } catch(Exception e) {
-                e.printStackTrace();
             }
         }
     }
