@@ -3,6 +3,7 @@ package com.parkflash.flashled;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 
 public class ColorFonctionnement implements AdapterView.OnItemSelectedListener {
@@ -23,6 +24,7 @@ public class ColorFonctionnement implements AdapterView.OnItemSelectedListener {
                 R.array.color_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //get selected color
+        Toast.makeText(mainActivity,"Changement couleur",Toast.LENGTH_LONG).show();
         colorFonctionnement = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
     }
 

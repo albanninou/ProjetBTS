@@ -3,6 +3,7 @@ package com.parkflash.flashled;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
     MainActivity mainActivity;
@@ -21,6 +22,7 @@ public class ModeFonctionnement implements AdapterView.OnItemSelectedListener {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mainActivity,
                 R.array.fonction_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Toast.makeText(mainActivity,"Changement mode",Toast.LENGTH_LONG).show();
         fonctionnementMode = adapter.getPosition(adapterView.getItemAtPosition(i).toString());
     }
 

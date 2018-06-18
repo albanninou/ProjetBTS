@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ModeFonctionnement modeFonctionnement;
     ColorFonctionnement colorFonctionnement;
     Button sendButton;
-
+    MainActivity mainActivity;
     TextView dataReceive;
     UsbSerialPort port;
     Noyau noyau;
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         sendButton = findViewById(R.id.button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(mainActivity,"Envoie de l'ordre",Toast.LENGTH_LONG).show();
                 noyau.send();
             }
         });

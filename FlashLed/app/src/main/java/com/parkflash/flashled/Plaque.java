@@ -74,6 +74,7 @@ public class Plaque {
         if (isEneable) {
             switch (color) {
                 case 0:
+
                     image.setImageResource(R.drawable.p_red);
                     break;
                 case 1:

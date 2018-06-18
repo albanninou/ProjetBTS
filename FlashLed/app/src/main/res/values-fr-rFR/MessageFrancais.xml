@@ -3,7 +3,8 @@
     <string-array name="fonction_array">
         <item>Allumage continu</item>
         <item>Clignotement</item>
-        <item>Chenillard</item>
+        <item>Chenillard 1</item>
+        <item>Chenillard 2</item>
     </string-array>
 
     <string-array name="color_array">
